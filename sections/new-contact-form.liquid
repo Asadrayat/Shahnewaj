@@ -1,0 +1,575 @@
+{% liquid
+  assign id = section.id
+%}
+
+<style>
+    #shopify-section-{{id}} {
+      box-sizing: border-box;
+      margin-top: {{section.settings.margin_top | append: 'px'}};
+      margin-bottom: {{section.settings.margin_bottom | append: 'px'}};
+      padding-top: {{section.settings.padding_top | append: 'px'}};
+      padding-bottom: {{section.settings.padding_bottom | append: 'px'}};
+      background: #FFCD80;
+    }
+
+    @media(max-width: 600px) {
+      #shopify-section-{{id}} {
+        margin-top: {{section.settings.margin_top_m | append: 'px'}};
+        margin-bottom: {{section.settings.margin_bottom_m | append: 'px'}};
+        padding-top: {{section.settings.padding_top_m | append: 'px'}};
+        padding-bottom: {{section.settings.padding_bottom_m | append: 'px'}};
+      }
+    }
+    #shopify-section-{{id}} {
+      .wrapper-{{ id }}{
+
+        @media(max-width: 768px){
+
+        }
+      }
+      .content-wrapper{
+        display: flex;
+        {% comment %} padding-right: var(--Spacing-Container-xxl, 80px); {% endcomment %}
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--Spacing-Container-md, 24px);
+        flex: 1 0 0;
+        @media(max-width: 768px){
+          padding-right: unset;
+        }
+      }
+      .text-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--Spacing-Container-xs, 12px);
+        align-self: stretch;
+        margin-bottom: 48px;
+            @media(width < 768px) {
+              margin-bottom: 24px;
+           }
+      }
+      h2.--section-title {
+              color: #AF003A;
+              /* font-family: var(--font-family-Title, "Neue Plak"); */
+              font-size: 76px;
+              margin: 0;
+              font-weight: 500;
+              text-align: center;
+              /* line-height: var(--Line-Height-Heading-H2, 40px); */
+              letter-spacing: 0;
+              /* margin-block: 0 var(--Spacing-Container-xxs); */
+              @media(width < 768px) {
+              font-size: 32px;
+              margin-bottom: 32px;
+              }
+              em {
+                  display: block;
+                  font-style: unset;
+                  @media(max-width: 768px) {
+                      display: unset;
+                  }
+              }
+
+
+      }
+      .text {
+          color: var(--Color-Red-AF003A-Dark, #AF003A);
+          text-align: center;
+          margin: 0;
+          /* Proxima Nova/Bold 28 px */
+          font-family: "arial";
+          font-size: 28px;
+          font-style: normal;
+          {% comment %} font-weight: 700; {% endcomment %}
+          line-height: 38px; /* 135.714% */
+          @media(width < 768px) {
+              font-size: 24px;
+          }
+          em {
+              display: block;
+              font-style: unset;
+              @media(max-width: 768px) {
+                  display: unset;
+              }
+          }
+      }
+
+
+      /*New Contact Form */
+      .contact-form-wrapper {
+        max-width: 660px;
+        margin: auto;
+      }
+
+      .form-status--message{
+         color: var(--Color-Red-AF003A-Dark, #AF003A);
+        /* font-family: var(--font-family-Title, "Neue Plak"); */
+        font-size: var(--Font-Size-Heading-H4);
+        font-style: normal;
+        font-weight: 400;
+        line-height: var(--Line-Height-Heading-H4); /* 100% */
+        letter-spacing: -0.4px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+
+      .field__label {
+          color: var(--Color-Red-AF003A-Dark, #AF003A);
+          font-family: "Proxima";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          text-transform: capitalize;
+          letter-spacing: 0;
+          top: 14px;
+          left: 24px;
+      }
+
+      .field__input {
+      padding: 14px 24px;
+      height: max-content;
+          border-radius: 18px;
+
+        transition: border-color 0.3s ease-in-out;
+        /* border-radius: var(--rounded-lg, 8px); */
+        {% comment %} border: 1px solid var(--Border-Base-main, #D1D5DB); {% endcomment %}
+        background: var(--Background-base, #FFF);
+      }
+
+      .field__input:focus {
+        border-color: #333;
+        outline: none;
+      }
+
+
+
+
+      .text-area {
+      min-height: 140px;
+      }
+
+      .contact__button {
+        text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          p {
+              color: var(--Color-Red-AF003A-Dark, #AF003A);
+              font-family: "arial";
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 24px;
+              margin: 0 0 36px;
+          }
+      }
+      .field__wrap {
+          display: flex;
+          gap: 20px;
+          align-items: center;
+          @media(max-width: 768px){
+              flex-wrap: wrap;
+              gap: 0px;
+          }
+      }
+      .button {
+      width: 100%;
+      cursor: pointer;
+      color: #FFF;
+      text-align: center;
+      line-height: var(--Line-Height-UI-Controls-Control-Button-Small, 20px);
+      text-transform: uppercase;
+      display: block;
+        {% comment %} width: 100%;
+        cursor: pointer;
+        /* background: var(--Content-Base-main, #1F2937); */
+        background: #906F53;
+        padding: var(--Spacing-Container-xs, 12px) var(--Spacing-Container-lg, 40px);
+        color: #FFF;
+        text-align: center;
+        /* font-family: var(--font-family-Body, "Neue Plak"); */
+        font-size: var(--Font-Size-UI-Controls-Control-Button-Small, 20px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: var(--Line-Height-UI-Controls-Control-Button-Small, 20px); /* 100% */
+        text-transform: capitalize;
+        text-decoration: none;
+        display: block;      {% endcomment %}
+      }
+      .field:before {
+        content: unset;
+      }
+      .field:after {
+        content: unset;
+      }
+      .field__label{
+          color: var(--Color-Red-AF003A-Dark, #AF003A);
+          font-family: "Proxima";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          text-transform: capitalize;
+          z-index: 1;
+          @media(max-width: 768px) {
+              font-size: 14px;
+          }
+
+      }
+      .field__input {
+          margin: 0 0 4px 0;
+    color: var(--Color-Red-AF003A-Dark, #AF003A);
+    font-family: "Proxima";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+    text-transform: capitalize;
+    {% comment %} z-index: 1;           {% endcomment %}
+          /* border-bottom: 1px solid #00000054; */
+          @media(max-width: 768px){
+            /* padding: 0;          */
+          }
+      }
+      .field.select {
+          position: relative;
+          select {
+              width: 100%;
+              max-width: 100%;
+              font-size: 14px;
+              white-space: normal;       /* try allow wrapping */
+              overflow-wrap: anywhere;   /* break long words if needed */
+              text-overflow: ellipsis;
+          }
+          select option {
+          white-space: nowrap;       /* prevent wrap */
+          overflow: hidden;
+          text-overflow: ellipsis;
+          }
+      }
+      .field.select svg {
+          position: absolute;
+          z-index: 2;
+          top: 0;
+          right: 24px;
+          width: 16px;
+          height: calc(100% - 2px);
+          text-align: end;
+          content: "";
+          box-shadow: none;
+      }
+      .field__input.select__ {
+          color: var(--Color-Red-AF003A-Dark, #AF003A);
+          font-family: "Proxima";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          text-transform: capitalize;
+          border-radius: 18px;
+      }
+
+      }
+      .field__input:focus{
+        margin: 0 0 4px 0;
+        box-shadow: unset;
+      }
+      .field__input::placeholder {
+        opacity: 1;
+        color: var(--Color-Neutral-neutral, #666);
+        font-family: var(--font-family-Body, "Neue Plak");
+        font-size: var(--Font-Size-Paragraph-Small, 16px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: var(--Line-Height-Paragraph-Small, 24px); /* 150% */
+      }
+    .field__input:focus, .field__input.has-value {
+        z-index: 5;
+    }
+  .selece__drop {
+    .field:focus-within .field__label,
+    .field__input.has-value,
+    .field__input:placeholder-shown ~ .field__label {
+      display: block ;
+    }    
+  }
+
+          @media(max-width: 768px) {
+      .sec-{{ id }} option.field__label {
+    font-size: 14px;
+    max-width: 100%;
+    white-space: normal;      /* allow wrapping if possible */
+    overflow-wrap: anywhere;  /* break long words */
+
+          }
+    }
+</style>
+
+<div class="sec-{{ id }}">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="wrapper-{{ id }}">
+      <div class="content-wrapper">
+        <div class="text-wrapper">
+          <h2 class="--section-title">{{ section.settings.title }}</h2>
+          <p class="text">{{ section.settings.des }}</p>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper">
+        {%- form 'contact', id: 'ContactForm', class: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <h2 class="form-status form-status-list form__message form-status--message" tabindex="-1" autofocus>
+              {{ 'templates.contact.form.post_success' | t }}
+            </h2>
+          {%- elsif form.errors -%}
+            <div class="form__message">
+              <h2 class="form-status caption-large text-body form-status--message" role="alert" tabindex="-1" autofocus>
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h2>
+            </div>
+            <ul class="form-status-list caption-large form-status--message" role="list">
+              <li>
+                <a href="#ContactForm-email" class="link">
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}
+                </a>
+              </li>
+            </ul>
+          {%- endif -%}
+
+          <!-- Name Field -->
+          <div class="field">
+            <input
+              class="field__input"
+              type="text"
+              id="ContactForm-name"
+              name="contact[name]"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              required
+            >
+            <label for="ContactForm-name" class="field__label">Name</label>
+          </div>
+          <div class="field">
+            <label for="ContactForm-name" class="field__label">Business Name</label>
+            <input
+              class="field__input"
+              type="text"
+              id="business_name"
+              name="contact[business_name]"
+              value=""
+              required
+            >
+          </div>
+          <div class="field__wrap selece__drop">
+            <div class="field select" class="field__label" className="request-type">
+              {% comment %} <label class="field__label" htmlFor="request-type">Business Type</label> {% endcomment %}
+              <select class="field__input select__ " id="request-type" name="contact[request_type]">
+                <option class="field__label">Business Type</option>
+                <option class="field__label">E-Commerce</option>
+                <option class="field__label">Food service (distributor, restaurants, hotels, cafes, etc.)</option>
+                <option class="field__label">Retail (distributor, grocery, buyer, chain etc.)</option>
+                <option class="field__label">Other</option>
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24" fill="none">
+                <path d="M15.6922 10.473L8.73801 18.1608C8.6411 18.2683 8.52595 18.3536 8.39915 18.4118C8.27236 18.47 8.13642 18.5 7.99913 18.5C7.86184 18.5 7.7259 18.47 7.59911 18.4118C7.47231 18.3536 7.35716 18.2683 7.26025 18.1608L0.306055 10.473C0.110092 10.2563 -2.92009e-09 9.96251 0 9.65614C2.92009e-09 9.34977 0.110092 9.05594 0.306055 8.8393C0.502019 8.62267 0.767803 8.50096 1.04494 8.50096C1.32207 8.50096 1.58786 8.62267 1.78382 8.8393L8 15.7113L14.2162 8.83834C14.4121 8.62171 14.6779 8.5 14.9551 8.5C15.2322 8.5 15.498 8.62171 15.6939 8.83834C15.8899 9.05498 16 9.34881 16 9.65518C16 9.96155 15.8899 10.2554 15.6939 10.472L15.6922 10.473Z" fill="#AF003A"/>
+              </svg>
+            </div>
+            <div class="field">
+              <label for="ContactForm-location" class="field__label">Location</label>
+              <input
+                class="field__input"
+                type="text"
+                id="location"
+                name="contact[location]"
+                value=""
+                required
+              >
+            </div>
+          </div>
+          <div class="field__wrap">
+            <div class="field ">
+              <label class="field__label" for="phone">Phone Number</label>
+              <input class="field__input" id="tel" type="tel" name="contact[phone]" value="" required>
+            </div>
+            <!-- Email Field -->
+            <div class="field">
+              <label for="ContactForm-email" class="field__label">Email Address</label>
+              <input
+                type="email"
+                id="ContactForm-email"
+                class="field__input"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                required
+              >
+            </div>
+          </div>
+          <!-- Message Field -->
+          <div class="field">
+            <label for="ContactForm-body" class="field__label">How can we help?</label>
+            <textarea
+              rows="5"
+              id="ContactForm-body"
+              class="text-area field__input"
+              name="contact[message]"
+              {% comment %} placeholder="Type your message..." {% endcomment %}
+              required
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="contact__button">
+            <p>A member of our sales team will contact you within <strong>1–2</strong> business days.</p>
+            <button type="submit" class="button">Submit</button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.sec-{{ id }} .field__input').forEach(input => {
+    input.addEventListener('input', () => {
+      input.classList.toggle('has-value', input.value.trim() !== '');
+    });
+  });
+
+</script>
+
+{% schema %}
+{
+  "name": "New Contact Form",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width Section",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact us"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "des",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "phone_text",
+      "label": "Phone Text",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Contact Form"
+    }
+  ]
+}
+{% endschema %}

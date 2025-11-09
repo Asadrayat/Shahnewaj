@@ -1,0 +1,547 @@
+{% comment %}{% endcomment %}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign id = section.id
+%}
+
+<style>
+        .sec-{{ id }} {
+          box-sizing: border-box;
+          margin-top: {{section.settings.margin_top | append: 'px'}};
+          margin-bottom: {{section.settings.margin_bottom | append: 'px'}};
+          padding-top: {{section.settings.padding_top | append: 'px'}};
+          padding-bottom: {{section.settings.padding_bottom | append: 'px'}};
+          @media(max-width: 768px) {
+            padding-inline: 16px;
+          }
+          .button.full.view_btn{
+            width: max-content;
+            /* margin: 16px auto; */
+          }
+          .swiper-button-lock {
+            display: none !important;
+          }
+          a.button.button--primary {
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              max-width: max-content;
+              margin: 32px auto 0;
+          }
+        }
+
+        @media(max-width: 768px) {
+          .sec-{{ id }} {
+            margin-top: {{section.settings.margin_top_m | append: 'px'}};
+            margin-bottom: {{section.settings.margin_bottom_m | append: 'px'}};
+            padding-top: {{section.settings.padding_top_m | append: 'px'}};
+            padding-bottom: {{section.settings.padding_bottom_m | append: 'px'}};
+          }
+
+        }
+    /* .sec-{{ id }} .page-width {
+        padding: 0;
+    } */
+      .wrapper-{{ id }}{
+      .--top-block {
+          /* display: grid;
+          grid-template-columns: repeat(2, minmax(0,1fr)); */
+          display: flex;
+          justify-content: center;
+
+          align-items: center;
+          gap: var(--Spacing-Container-xxs);
+          align-items: end;
+          box-sizing: border-box;
+
+          /* margin-bottom: var(--Spacing-Container-sm); */
+          {% if section.settings.title == blank and section.settings.subtitle == blank %}
+            display: none;
+          {% endif %}
+
+          {% if section.settings.full_width == true %}
+            padding: 0 var(--Spacing-Section-Section-Horizontal-Padding, 12px);
+            {% endif %}
+
+
+          margin-block: 0 52px;
+          @media(max-width: 600px){
+            grid-template-columns: minmax(0,1fr);
+            margin-block: 0 32px;
+            gap: var(--Spacing-Container-xs);
+          }
+      }
+        h2.--section-title {
+            color: #AF003A;
+            /* font-family: var(--font-family-Title, "Neue Plak"); */
+            font-size: 76px;
+            margin: 0;
+            font-weight: 500;
+            /* line-height: var(--Line-Height-Heading-H2, 40px); */
+            letter-spacing: -0.4px;
+            /* margin-block: 0 var(--Spacing-Container-xxs); */
+              {% if  section.settings.subtitle == blank %}
+                 /* margin-block: 0 var(--Spacing-Container-md); */
+                  @media(max-width: 768px) {
+                    /* margin-block: 0; */
+                      /* margin-bottom: 16px; */
+                  }
+              {% endif %}
+          @media(width < 768px) {
+            font-size: 32px;
+          }
+        }
+      .--section-subtitle {
+          color: var(--Content-Base-main, #1F2937);
+          /* font-family: var(--font-family-Body, "Neue Plak"); */
+          font-size: var(--Font-Size-Paragraph-Medium);
+          line-height: var(--Line-Height-Paragraph-Medium);
+           margin-bottom: var(--Spacing-Container-sm);
+      }
+
+
+
+
+      .--button-wrapper {
+          display: flex;
+          gap: var(--Spacing-Container-sm);
+          justify-content: flex-end;
+          margin-bottom: var(--Spacing-Container-sm);
+          @media(max-width: 600px){
+            justify-content: flex-start;
+          }
+      }
+      .button.full_.view_btn_ {
+        color: #004027;
+      }
+      a.--button {
+          display: block;
+          color: #fff;
+          text-align: center;
+          /* font-family: var(--font-family-Body, "Neue Plak"); */
+          font-size: var(--Font-Size-UI-Controls-Control-Button-Small);
+          line-height: var(--Line-Height-UI-Controls-Control-Button-Small);
+          text-transform: capitalize;
+          padding: var(--Spacing-Container-xs) var(--Spacing-Container-sm);
+          border: 2px solid var(--Content-Base-main);
+          background: #004027;
+      }
+
+      /* Swiper Styling */
+      .--slider-wrapper{
+        position: relative;
+      }
+      .swiper:not(.swiper-initialized) .swiper-slide {
+          max-width: calc(var(--page-width)/4) !important;
+          margin-right: 16px;
+          overflow: hidden;
+      }
+      .mfc__nav-scroll__wrapp {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        padding: 12px;
+      }
+      .button__wrapper_swiper {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+      }
+      .--nav-icon {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        background: #FFAE42;
+        line-height: 1;
+        position: absolute;
+        top: 50%;
+        z-index: 1;
+        border-radius: 0%;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-50%);
+        box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
+        cursor: pointer;
+        border-radius: 99px;
+          path {
+            stroke: #fff;
+          }
+      }
+      .swiper-wrapper.justify-center {
+        justify-content: center;
+          @media(max-width: 600px){
+            justify-content: flex-start;
+          }
+      }
+      .swiper-scrollbar-{{ section.id }} {
+        position: relative !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        /* margin: var(--Spacing-Container-sm) 0 0 0; */
+        height: 3px !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        cursor: pointer;
+        padding-block: 16px;
+        z-index: 1;
+        background: transparent;
+        .swiper-scrollbar-drag {
+          background: #004027;
+          display: block !important;
+          height: 2px;
+        }
+      }
+      .swiper-scrollbar-{{ section.id }}::before {
+        position: absolute;
+        content: "";
+        background: var(--swiper-scrollbar-bg-color, rgba(0, 0, 0, .1));
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+      }
+      .--nav-icon.swiper-button-disabled {
+          background: #f5ecd5;
+          path {
+            stroke: #eddfd3;
+          }
+      }
+        .prev-{{ section.id }}.--nav-icon {
+           left: -20px;
+           left: 0px;
+        }
+        .next-{{ section.id }}.--nav-icon {
+           right: -20px;
+           right: 0px;
+        }
+      }
+  .grid__fc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding: 16px;
+      @media(max-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media(max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+  }
+  @media(min-width: 768px) {
+
+  }
+  @media(max-width: 768px) {
+    .sec-{{ id }} h2.--section-title {
+      /* margin: 0 0 var(--Spacing-Container-lg) 0; */
+    }
+  }
+</style>
+
+<div id="{{ section.settings.id_nav | downcase }}" class="sec-{{ id }} color-{{ section.settings.color_scheme }}">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="wrapper-{{ id }}">
+      <div class="--top-block">
+        <div class="--text-content">
+          <h2 class="--section-title center">{{ section.settings.title }}</h2>
+          {% comment %} <div class="--section-subtitle">{{ section.settings.subtitle }}</div> {% endcomment %}
+        </div>
+        {% comment %} <a href="{{ section.settings.collection.url }}" class="button full_ view_btn_">{% if section.settings.button_label != blank  %} {{ section.settings.button_label }} {% else %} View All {% endif %} </a> {% endcomment %}
+
+        {% if section.settings.button_label != blank and section.settings.secondary_button_label != blank %}
+          <div class="--button-wrapper">
+            {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+              <a class="--button" href="{{ section.settings.button_url }}"> {{ section.settings.button_label }} </a>
+            {% endif %}
+            {% if section.settings.secondary_button_label != blank and section.settings.secondary_button_url != blank %}
+              <a class="--button" href="{{ section.settings.secondary_button_url }}">
+                {{ section.settings.secondary_button_label }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="large-up-hide medium-up-hide">
+        <div class="--slider-wrapper swiper__container ">
+          <div class="swiper swiper-{{ section.id }}">
+            <div class="swiper-wrapper {% if section.settings.collection.products.size < 4 %}justify-center{% endif %}">
+              {% for product in section.settings.collection.products limit: 8 %}
+                {% # render 'product-card-new-v1', product: product, forloop: forloop, class: 'swiper-slide' %}
+                <div class="swiper-slide">
+                  {% # render 'new-product-card', product: product %}
+                  {% render 'new-product-card-v1', product: product %}
+                </div>
+              {% endfor %}
+            </div>
+            <div class="mfc__nav-scroll__wrapp">
+              {% comment %}
+                <div class="swiper-scrollbar-{{ section.id }} swiper-scrollbar"></div>
+              {% endcomment %}
+              <div class="button__wrapper_swiper hidden">
+                <div class="prev-{{ section.id }} --nav-icon ">
+                  {% comment %}
+                    {% render 'all-icons', name: 'left_arrow' %}
+                  {% endcomment %}
+                  {% render 'all-icons', name: 'left_caret' %}
+                </div>
+                <div class="next-{{ section.id }} --nav-icon ">
+                  {% render 'all-icons', name: 'right_caret' %}
+                  {% comment %}
+                    {% render 'all-icons', name: 'right_arrow' %}
+                  {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="small-hide">
+        <div class="grid__fc">
+          {% for product in section.settings.collection.products limit: 8 %}
+            <div class="card___wrappper_fc">
+              {% render 'new-product-card-v1', product: product %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.settings.show_view_all %}
+        <a href="{{ section.settings.collection.url }}" class="button button--primary">
+          {%- if section.settings.button_label != blank %}
+            {{ section.settings.button_label }}
+          {% else %}
+            View All
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    function fcinitSwiper(classname) {
+      if (classname) {
+        new Swiper(classname, {
+          slidesPerView: 1.2,
+          spaceBetween: 20,
+          loop: true,
+          navigation: {
+            nextEl: '.next-{{ section.id }}',
+            prevEl: '.prev-{{ section.id }}',
+          },
+          breakpoints: {
+            200: {
+              slidesPerView: 1.2,
+              spaceBetween: 16,
+            },
+            768: {
+              slidesPerView: 2.8,
+              spaceBetween: 16,
+            },
+            1024: {
+              slidesPerView: 3.2,
+              spaceBetween: 24,
+            },
+            1200: {
+              slidesPerView: 3.8,
+              spaceBetween: 32,
+            },
+            1400: {
+              slidesPerView: 4.2,
+              spaceBetween: 32,
+            },
+            2000: {
+              slidesPerView: 5.5,
+              spaceBetween: 32,
+            },
+          },
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      fcinitSwiper('.swiper-{{ section.id }}');
+    });
+
+    // Optional: Add an event listener to handle window resize events
+    window.addEventListener('resize', function () {
+      fcinitSwiper('.swiper-{{ section.id }}'); // Re-initialize Swiper on window resize
+    });
+  })();
+
+  function setEqualHeight(selector) {
+    const divs = document.querySelectorAll(selector);
+    const maxHeight = Math.max(...Array.from(divs, (div) => div.offsetHeight));
+    divs.forEach((div) => {
+      div.style.height = `${maxHeight}px`;
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    setEqualHeight('.sec-{{ id }} [data-card-info]');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Collection v2",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width Section",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "id_nav",
+      "label": "Id for Navigtion"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Url"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button Label"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary Button Url"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 16
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Featured Collectio v2n"
+    }
+  ]
+}
+{% endschema %}

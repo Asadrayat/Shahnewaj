@@ -1,0 +1,319 @@
+
+{% liquid
+  assign id = section.id
+%}
+
+<style>
+  #shopify-section-{{id}} {
+    box-sizing: border-box;
+    margin-top: {{section.settings.margin_top | append: 'px'}};
+    margin-bottom: {{section.settings.margin_bottom | append: 'px'}};
+    padding-top: {{section.settings.padding_top | append: 'px'}};
+    padding-bottom: {{section.settings.padding_bottom | append: 'px'}};
+    .badge__img {
+      width: 100%;
+      max-width: max-content;
+      height: auto;
+      object-fit: cover;
+      line-height: 0;  
+        @media(width < 768px) {
+        }
+    }  
+
+    h2.--section-title {
+          color: #AF003A;
+          /* font-family: var(--font-family-Title, "Neue Plak"); */
+          font-size: 76px;
+          margin: 0;
+          font-weight: 500;
+          text-align: center;
+          /* line-height: var(--Line-Height-Heading-H2, 40px); */
+          letter-spacing: 0;
+          margin-bottom: 52px;
+          /* margin-block: 0 var(--Spacing-Container-xxs); */
+          @media(width < 768px) {
+            font-size: 32px;
+            margin-bottom: 32px;
+          }        
+          em {
+              display: block;
+              font-style: unset;
+              @media(max-width: 768px) {
+                  display: unset;
+              }
+          }
+
+
+    }
+    .wrapper-{{ id }}  .swiper-wrapper{
+      transition-timing-function: linear !important;
+    }
+
+    .wrapper-{{ id }} .content__wrapper {
+      color: #AF003A;
+      font-style: normal;
+      font-weight: 400;
+      width: max-content;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      overflow: hidden;
+      flex-direction: column;
+      {% comment %} background: #FFF2E1;
+      flex-direction: column;
+      padding: 28px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid #FFAE42; {% endcomment %}
+    }
+    .wrapper-{{ id }} .content__{
+      font-size: 20px;
+      line-height: 140%;       
+      strong {
+          font-size: 28px;
+          font-weight: 400;     
+          display: block;    
+          margin: 0 0 12px;
+          display: block;
+          font-family: 'Proxima' !important;
+      }        
+    }
+    .wrapper-{{ id }} .swiper-slide{
+      display: flex;
+      justify-content: start;
+      background: #FFF2E1;    
+      padding: 28px;
+      border-radius: 32px;    
+      border: 1px solid #FFAE42;  
+      box-sizing: border-box;  
+    }
+    .content__ *{
+      margin: 0 0 12px;
+      
+    }
+  } 
+  @media(max-width: 600px) {
+    #shopify-section-{{id}} {
+      margin-top: {{section.settings.margin_top_m | append: 'px'}};
+      margin-bottom: {{section.settings.margin_bottom_m | append: 'px'}};
+      padding-top: {{section.settings.padding_top_m | append: 'px'}};
+      padding-bottom: {{section.settings.padding_bottom_m | append: 'px'}};
+    }
+  .wrapper-{{ id }} .swiper-slide{
+    justify-content: center;
+  }    
+  }
+</style>
+
+<div class="sec-{{ id }}">
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <h2 class="--section-title">{{ section.settings.heading }}</h2>
+    <div class="wrapper-{{ id }}">
+      <div class="swiper badges-{{ id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div class="content__wrapper">
+                {% if block.settings.badge != blank %}
+                  <div class="badge__img">
+                    {{ block.settings.badge | image_url: width: 84 | image_tag }}
+                  </div>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="content__">{{ block.settings.text }}</div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const swiperOptions = {
+      slidesPerView: 1.2,
+      spaceBetween: 12,
+      breakpoints: {
+        500: {
+          slidesPerView: 1.8,
+          spaceBetween: 12,
+        },
+        850: {
+          slidesPerView: 2.6,
+          spaceBetween: 12,
+        },
+        969: {
+          slidesPerView: 3.2,
+          spaceBetween: 12,
+        },
+        1200: {
+          slidesPerView: 4,
+          spaceBetween: 32,
+        },
+      },
+    };
+
+    // Conditionally add autoplay if screen width < 600
+    if (screen.width < 600) {
+      swiperOptions.loop = true;
+     // swiperOptions.speed = 5000;
+     // swiperOptions.autoplay = {
+//delay: 0,
+    //    disableOnInteraction: false,
+//pauseOnMouseEnter: true,
+    //  };
+    }
+
+    new Swiper('.badges-{{ id }}.swiper', swiperOptions);
+  });
+
+
+ function setEqualHeight(selector){
+      const divs = document.querySelectorAll(selector);
+      const maxHeight = Math.max(...Array.from(divs, div => div.offsetHeight));
+      divs.forEach(div => {
+        div.style.height = `${maxHeight}px`;
+      });
+    };
+  document.addEventListener('DOMContentLoaded', () => {
+    setEqualHeight('.sec-{{ id }} .content__');
+  });
+
+  
+</script>
+
+{% schema %}
+{
+  "name": "Icon With Text",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width Section",
+      "default": false
+    },
+    {
+        "type": "inline_richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Shop By Shape"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Bagde Text",
+          "default": "Fast Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon With Text",
+      "blocks": [{ "type": "text" }, { "type": "text" }]
+    }
+  ]
+}
+{% endschema %}

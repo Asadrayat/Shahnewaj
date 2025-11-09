@@ -1,0 +1,73 @@
+<product-card>
+  <div class="product-card {% if product.media[1] != null %}is--hoverable{% endif %}">
+    <div class="product-card-wrapper">
+      <div class="card-media">
+        {% if product.featured_image %}
+          {{
+            product.featured_image
+            | image_url: width: product.featured_image.width
+            | image_tag: class: 'primary_image', loading: 'lazy'
+          }}
+        {% endif %}
+
+        {% if product.media[1] != null %}
+          {{
+            product.media[1]
+            | image_url: width: product.media[1].width
+            | image_tag: class: 'second_image', loading: 'lazy'
+          }}
+        {% endif %}
+        {% unless product.metafields.custom.badge_text == blank %}
+          <div class="sale-badge">{{ product.metafields.custom.badge_text }}</div>
+        {% endunless %}
+      </div>
+      <div class="card-info" data-card-info>
+        <div>
+          <h4>{{ product.title | capitalize }}</h4>
+          {% unless product.metafields.custom.ingredients.value == blank %}
+            <div class="ingredient__wrap">
+              {% assign labels = 'carbs,protein,fat' | split: ',' %}
+              {% for ing_list in product.metafields.custom.ingredients.value %}
+                {% assign label = labels[forloop.index0] %}
+                <div class="ingredient ingredient--{{ forloop.index }}">
+                  <strong>{{ ing_list }}</strong> {{ label }}
+                  <span class="{% if forloop.last %}hidden{% endif %}"> | </span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          {% unless product.metafields.custom.flavours == blank %}
+            <div class="flavours__wrap"><strong>Flavor: </strong>{{ product.metafields.custom.flavours }}</div>
+          {% endunless %}
+        </div>
+        <div class="card__cta">
+          {% comment %} <div class="card-wishlist">{% render 'all-icons', name: 'wishlist' %}</div> {% endcomment %}
+          <button
+            class="card-qatc-btn"
+            data-product-handle="{{ product.handle }}"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          >
+            BUY NOW
+          </button>
+        </div>
+        {% comment %}
+          <div class="card-price care-new-price">
+            {% if product.selected_or_first_available_variant.price
+                < product.selected_or_first_available_variant.compare_at_price
+            %}
+              <p class="cnp-regular">{{ product.selected_or_first_available_variant.price | money }}</p>
+              <p class="cnp-compare">
+                <s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+              </p>
+            {% else %}
+              <p class="cnp-regular">{{ product.selected_or_first_available_variant.price | money }}</p>
+            {% endif %}
+          </div>
+        {% endcomment %}
+        {% # render 'color-swatch', product: product %}
+      </div>
+    </div>
+    <a href="{{ product.url }}"></a>
+  </div>
+</product-card>

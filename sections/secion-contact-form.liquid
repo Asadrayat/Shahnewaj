@@ -1,0 +1,899 @@
+{% comment %} {{ 'section-contact-form.css' | asset_url | stylesheet_tag }} {% endcomment %}
+<style>
+    .section-container--{{ section.id }}{
+      margin-top: {{ section.settings.margin_top | append:'px' }};
+      margin-bottom: {{ section.settings.margin_bottom | append:'px' }};
+      padding-top: {{ section.settings.padding_top | append:'px' }};
+      padding-bottom: {{ section.settings.padding_bottom | append:'px' }};
+      background-color: {{ section.settings.bg-color }};
+      overflow: hidden;
+    }
+    @media screen and (max-width: 768px){
+      .section-container--{{ section.id }}{
+        margin-top: {{ section.settings.margin_top_mobile | append:'px' }};
+        margin-bottom: {{ section.settings.margin_bottom_mobile | append:'px'  }};
+        padding-top: {{ section.settings.padding_top_mobile | append:'px' }};
+        padding-bottom: {{ section.settings.padding_bottom_mobile | append:'px' }};
+      }
+    }
+    .section-container--{{ section.id }}{
+      h1,h2,h3,h4,p{
+        margin: 0;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 32px;
+         @media(max-width: 768px){
+           font-size: 20px;
+            line-height: 26px;
+        }
+      }
+      .section-wrapper--{{ section.id }}{
+        /* max-height: 1260px; */
+        @media(max-width: 768px){
+          /* max-height: fit-content; */
+        }
+      }
+      .banner-container{
+        position: relative;
+      }
+      .banner-text-container{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* background: #34171785; */
+        @media(max-width: 768px){
+          justify-content: flex-start;
+          padding-top: 50px;
+        }
+      }
+      .banner-text {
+        max-width: 640px;
+        /* transform: translateY(-50%); */
+        @media(max-width: 768px){
+          max-width: 380px;
+          /* transform: translateY(-13%); */
+        }
+      }
+      .banner-text h1,
+      .banner-text h2,
+      .banner-text h3,
+      .banner-text h4,
+      .banner-text h5,
+      .banner-text p{
+        text-align: center;
+        color: #fff;
+      }
+      .img-wrapper img{
+        width: 100%;
+        height: 100%;
+        /* object-fit: cover; */
+      }
+      .img-wrapper-desktop{
+        line-height: 0;
+        img {
+          /* width: 100%;
+          height: auto; */
+          aspect-ratio: 4/1;
+          object-fit: cover;
+          object-position: bottom;
+        }
+        @media(max-width: 768px){
+          display: none;
+        }
+      }
+      .img-wrapper-mbl{
+        line-height: 0;
+        display: none;
+        @media(max-width: 768px){
+          display: block;;
+        }
+      }
+
+      .form-title{
+        font-size: 32px;
+        margin: 0 0 20px 0;
+        padding: 0 1.5rem;
+        @media (max-width: 768px) {
+              padding-left: 0;
+          }
+      }
+      .contact-form{
+        display: grid;
+        gap: 20px;
+        /* max-width: max-content;
+        margin-inline: auto; */
+      }
+      .contact-form-top{
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        @media(max-width: 768px){
+          grid-template-columns: 1fr;
+        }
+      }
+      .choice-field {
+        display: block;
+      }
+      .choice-field span{
+        font-weight: 600;
+      }
+      .choice-field:after {
+        display: none;
+      }
+      .field__label-choice{
+        color: #163052;
+      }
+      .contact__button{
+        padding: 0 1.5rem;
+        @media(max-width: 768px){
+          padding: 0;
+        }
+      }
+
+      .form-container{
+        gap: 60px;
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+        position: relative;
+        top: 50px;
+        padding-block: 40px;
+        margin-bottom: 80px;
+        @media(max-width: 768px){
+          grid-template-columns: 1fr;
+          top: 0;
+          gap: 40px;
+        }
+      }
+      .form-wrapper{
+        background-color: #fff;
+        padding: 40px;
+        /* border-radius: 4px; */
+        box-shadow: 0 .125rem 1.5rem 0 hsl(0deg 2.28% 56.49% / 23%);
+        @media(max-width: 768px){
+          padding: 20px;
+        }
+      }
+      .right-content-container{
+        max-height: max-content;
+          a {
+              text-decoration: none;
+              color: #000;
+              font-weight: 600;
+          }
+      }
+      .first{
+        background-color: #d41317;
+        color: #f4f4f4;
+        box-sizing: border-box;
+        min-height: 7.5rem;
+        position: relative;
+        /* border-radius: .25rem; */
+        padding: 2rem 2.5rem 2rem 1.125rem;
+        -webkit-box-shadow: 0 .125rem 1.5rem 0 hsla(0, 0%, 48.2%, .23);
+        box-shadow: 0 .125rem 1.5rem 0 hsla(0, 0%, 48.2%, .23);
+        margin-bottom: 1rem;
+        border: .0625rem solid transparent;
+      }
+      .first h2,.first p{
+        color: #f4f4f4;
+      }
+      .second{
+        border: .0625rem solid #d41317;
+        color: #000;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        min-height: 7.5rem;
+        position: relative;
+        /* border-radius: .25rem; */
+        padding: 2rem 2.5rem 2rem 1.125rem;
+        -webkit-box-shadow: 0 .125rem 1.5rem 0 hsla(0,0%,48.2%,.23);
+        box-shadow: 0 .125rem 1.5rem 0 hsla(0,0%,48.2%,.23);
+        margin-bottom: 1rem;
+      }
+      .second h2,.second p{
+        color: #000;
+      }
+      .third{
+        border-bottom: .0625rem solid #000;
+        color: #000;
+        min-height: 7.5rem;
+        position: relative;
+        padding: 2rem 2.5rem 2rem 1.125rem;
+      }
+      .third h2,.third p{
+        color: #000;
+      }
+      .fourth{
+        color: #000;
+        min-height: 7.5rem;
+        position: relative;
+        padding: 2rem 2.5rem 2rem 1.125rem;
+        margin-bottom: 1rem;
+      }
+      .fourth h2,.fourth p{
+        color: #000;
+      }
+
+
+      .field:before {
+        content: unset;
+      }
+      .field:after {
+        content: unset;
+      }
+      .field {
+        padding: 0 1.5rem;
+        @media(max-width: 768px){
+          padding: 0;
+        }
+      }
+      .field svg{
+          position: absolute;
+          z-index: 2;
+          right: 30px;
+          top: 15px;
+        display: none;
+        @media(max-width: 768px){
+          right: 10px;
+          width: 14px;
+          height: 14px;
+        }
+      }
+      .contactform-model {
+        padding: 0 !important;
+        color: #121212bf;
+      }
+      .contactform-model option:first-child {
+        color: gray;
+      }
+      .field__label{
+        left: 0;
+        padding-left: 1.5rem;
+        @media(max-width: 768px){
+          padding-left: 0;
+        }
+      }
+      .field__input {
+          margin: 0 0 4px 0;
+          border-bottom: 1px solid #00000054;
+          @media(max-width: 768px){
+            /* padding: 0;          */
+          }
+      }
+      .field__input:focus{
+        margin: 0 0 4px 0;
+        box-shadow: unset;
+      }
+      .field__input:focus~.field__label,.field__input:not(:placeholder-shown)~.field__label{
+        /* display: none; */
+        left: 0;
+        top: -10px;
+        @media(max-width: 768px){
+          left: 0;
+        }
+      }
+      select option {
+        padding: 10px; /* Adds padding to each dropdown option */
+        line-height: 1.3em;
+      }
+      select {
+        background-image:
+          linear-gradient(45deg, transparent 50%, gray 50%),
+          linear-gradient(135deg, gray 50%, transparent 50%),
+          linear-gradient(to right, #ccc, #ccc);
+        background-position:
+          calc(100% - 20px) calc(1em + 2px),
+          calc(100% - 15px) calc(1em + 2px),
+          calc(100% - 2.5em) 0.5em;
+        background-size:
+          5px 5px,
+          5px 5px,
+          1px 1.5em;
+        background-repeat: no-repeat;
+      }
+
+
+      /* MY styling */
+
+      .afh-lead-vetting-questions {
+          grid-column: 1/-1;
+          display: grid;
+          gap: 20px;
+          grid-template-columns: 1fr 1fr;
+          @media (max-width: 768px) {
+              grid-template-columns: 1fr;
+          }
+      }
+      h3.form-title.lead-vetting-questions {
+          grid-column: 1/-1;
+          margin-block: 20px 0;
+          line-height: 36px;
+      }
+  .form-description {
+      padding: 0 1.5rem;
+  }
+  .field.--full-width-field {
+      grid-column: 1/-1;
+  }
+  .field.time-field {
+      display: block;
+  }
+  .field.time-field label.field__label {
+      position: unset;
+    padding-left: 0;
+  }
+  .field.time-field input {
+      padding-left: 0;
+  }
+  input#ContactForm-fileUpload {
+      border: none;
+      height: auto;
+  }
+   @media (max-width: 768px) {
+         label.field__label {
+      position: relative;
+  }
+     .field {
+      flex-direction: column-reverse;
+  }
+  .field__input:focus~.field__label   {
+    font-size: 1.6rem;
+    top: unset;
+  }
+  select~.field__label   {
+    display: none;
+  }
+  }
+      /* select#ContactForm-businesstype option {
+      line-height: 20px!important;
+        height: 50px;
+  } */
+    }
+</style>
+<section class="section-container--{{ section.id }}">
+  <div class="section-wrapper--{{ section.id }}">
+    <div class="banner-container">
+      <div class="img-wrapper img-wrapper-desktop">
+        {% if section.settings.img != null %}
+          {{ section.settings.img | image_url: width: section.settings.img.width | image_tag: class: 'banner-img' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+      </div>
+      <div class="img-wrapper img-wrapper-mbl">
+        {% if section.settings.mbl_img != null %}
+          {{
+            section.settings.mbl_img
+            | image_url: width: section.settings.mbl_img.width
+            | image_tag: class: 'banner-img'
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+      </div>
+      <div class="banner-text-container">
+        <div class="banner-text">
+          {{ section.settings.text }}
+        </div>
+      </div>
+    </div>
+    <div class="form-container page-width">
+      <div class="form-wrapper">
+        <h3 class="form-title">{{ section.settings.form_title }}</h3>
+        <div class="form-description">{{ section.settings.form_description }}</div>
+        {{ section.settings.form_shortcode }}
+        {% comment %}
+          {%- form 'contact', id: 'ContactForm', class: 'contact-form' -%}
+            {%- if form.posted_successfully? -%}
+              <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+                {{- 'icon-success.svg' | inline_asset_content -}}
+                {{ 'templates.contact.form.post_success' | t }}
+              </h2>
+            {%- elsif form.errors -%}
+              <div class="form__message">
+                <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                  {{ 'templates.contact.form.error_heading' | t }}
+                </h2>
+              </div>
+              <ul class="form-status-list caption-large" role="list">
+                <li>
+                  <a href="#ContactForm-email" class="link">
+                    {{ form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email }}
+                  </a>
+                </li>
+              </ul>
+            {%- endif -%}
+
+            <div class="contact-form-top">
+              <div class="field">
+                <input
+                  class="field__input"
+                  type="text"
+                  id="ContactForm-businessname"
+                  name="contact[business_name]"
+                  placeholder="Business Name"
+                  required
+                >
+                <label class="field__label" for="ContactForm-businessname">Company/Business Name*</label>
+              </div>
+              <div class="field">
+                <input
+                  class="field__input"
+                  type="text"
+                  id="ContactForm-businessaddress"
+                  name="contact[business_address]"
+                  placeholder="Physical Address"
+                  required
+                >
+                <label class="field__label" for="ContactForm-businessaddress">Company/Business Physical Address*</label>
+              </div>
+              <div class="field">
+                <input
+                  type="tel"
+                  id="ContactForm-phone"
+                  class="field__input"
+                  autocomplete="tel"
+                  name="contact[telephone]"
+                  pattern="[0-9\-]*"
+                  value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                  placeholder="Phone Number"
+                >
+                <label class="field__label" for="ContactForm-phone">Phone Number</label>
+              </div>
+              <div class="field field--with-error">
+                <input
+                  autocomplete="email"
+                  type="email"
+                  id="ContactForm-email"
+                  class="field__input"
+                  name="contact[email]"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="ContactForm-email-error"
+                  {% endif %}
+                  placeholder="Email Address"
+                  required
+                >
+                <label class="field__label" for="ContactForm-email">Email Address*</label>
+                {%- if form.errors contains 'email' -%}
+                  <small class="contact__field-error" id="ContactForm-email-error">
+                    <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                    <span class="form__message">
+                      <span class="svg-wrapper">
+                        {{- 'icon-error.svg' | inline_asset_content -}}
+                      </span>
+                      {{- form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email -}}
+                    </span>
+                  </small>
+                {%- endif -%}
+              </div>
+
+
+              <div class="field --full-width-field">
+                <!-- <label f or="ContactForm-businesstype" class="field__label "> Type of business* </label> -->
+                <svg width="16" height="16" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <g id="layer1">
+                  <path d="M 2 3.2929688 L 1.2929688 4 L 10 12.707031 L 18.707031 4 L 18 3.2929688 L 10 11.292969 L 2 3.2929688 z M 2 7.2929688 L 1.2929688 8 L 10 16.707031 L 18.707031 8 L 18 7.2929688 L 10 15.292969 L 2 7.2929688 z " style="fill:#222222; fill-opacity:1; stroke:none; stroke-width:0px;"/>
+                  </g>
+                </svg>
+                <select
+                  id="ContactForm-businesstype"
+                  class="field__input contactform-model"
+                  name="contact[business_type]"
+                  required
+                >
+                  <option value="">Type of business*</option>
+                  <option value="ecommerce">E-commerce (online businesses)</option>
+                  <option value="foodservice">Foodservice (distributor, restaurants, hotels, cafes, etc.)</option>
+                  <option value="retail">Retail (distributor, grocery, buyer, chain etc.)</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <input
+                  class="field__input"
+                  type="text"
+                  id="ContactForm-website"
+                  name="contact[website]"
+                  placeholder="Website address if available"
+                >
+                <label class="field__label" for="ContactForm-website">Website address if available*</label>
+              </div>
+
+              <div class="field">
+                <input
+                  class="field__input"
+                  type="text"
+                  id="ContactForm-inquiryreason"
+                  name="contact[inquiry_reason]"
+                  placeholder="Reason for Inquiry"
+                >
+                <label class="field__label" for="ContactForm-inquiryreason">Reason for Inquiry</label>
+              </div>
+
+              <div class="afh-lead-vetting-questions hidden" id="afh-lead-vetting-questions">
+                <h3 class="form-title lead-vetting-questions">AFH Lead Vetting Questions</h3>
+                <div class="field --full-width-field">
+                  <!--
+                    <label for="ContactForm-interestedCoffeeType" class="field__label">What are you interested in?</label>
+                  -->
+                  <svg width="16" height="16" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <g id="layer1">
+                    <path d="M 2 3.2929688 L 1.2929688 4 L 10 12.707031 L 18.707031 4 L 18 3.2929688 L 10 11.292969 L 2 3.2929688 z M 2 7.2929688 L 1.2929688 8 L 10 16.707031 L 18.707031 8 L 18 7.2929688 L 10 15.292969 L 2 7.2929688 z " style="fill:#222222; fill-opacity:1; stroke:none; stroke-width:0px;"/>
+                    </g>
+                  </svg>
+                  <select
+                    id="ContactForm-interestedCoffeeType"
+                    class="field__input contactform-model"
+                    name="contact[interestedCoffeeType]"
+                  >
+                    <!--
+                      <option value="">What are you interested in?*</option>
+                      <option value="drip_coffee">Drip Coffee</option>
+                      <option value="espresso">Espresso</option>
+                      <option value="both_drip_coffee_and_espresso">Both</option>
+                    -->
+
+                    <option value="">Are you interested in drip coffee, espresso, or both?</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+                <div class="field --full-width-field">
+                  <input
+                    class="field__input"
+                    type="text"
+                    id="ContactForm-coffeprovider"
+                    name="contact[coffe_provider]"
+                    placeholder="Coffee/Espresso Provider"
+                  >
+                  <label class="field__label" for="ContactForm-coffeprovider"
+                    >Who is your current coffee/espresso provider or brands that you use/buy from?</label
+                  >
+                </div>
+                <div class="field --full-width-field">
+                  <input
+                    class="field__input"
+                    type="text"
+                    id="ContactForm-maintenance"
+                    name="contact[maintenance]"
+                    placeholder="Coffee/Espresso Provider"
+                  >
+                  <label class="field__label" for="ContactForm-maintenance"
+                    >Does your current coffee/espresso provider provide equipment and service, or do you own your own
+                    equipment?</label
+                  >
+                </div>
+                <div class="field --full-width-field">
+                  <input
+                    class="field__input"
+                    type="text"
+                    id="ContactForm-maintenance2"
+                    name="contact[maintenance2]"
+                    placeholder="Coffee/Espresso Provider"
+                  >
+                  <label class="field__label" for="ContactForm-maintenance2">
+                    Do you pay for service and preventative maintenance?</label
+                  >
+                </div>
+
+                <div class="field --full-width-field">
+                  <input
+                    type="text"
+                    id="ContactForm-coffeeConsumption"
+                    class="field__input"
+                    name="contact[coffee_consumption]"
+                    placeholder="Enter consumption details (e.g., 5 cases/month, 12 packs per case)"
+                  >
+                  <label for="ContactForm-coffeeConsumption" class="field__label"
+                    >How many cases of drip coffee/espresso are you buying per week/month? What is the pack size/case
+                    size?</label
+                  >
+                </div>
+
+
+                <div class="field time-field">
+                  <label for="ContactForm-openingTime" class="field__label"> Opening Hours? </label>
+                  <input
+                    type="time"
+                    id="ContactForm-openingTime"
+                    class="field__input "
+                    name="contact[opening_hours]"
+                  >
+                </div>
+                <div class="field time-field">
+                  <label for="ContactForm-closingTime" class="field__label"> Closing Hours? </label>
+                  <input
+                    type="time"
+                    id="ContactForm-closingTime"
+                    class="field__input "
+                    name="contact[closing_hours]"
+                  >
+                </div>
+
+                <div class="field --full-width-field">
+                  <!--
+                    <label for="ContactForm-capacity" class="field__label">How many seats/hotel rooms is your establishment?</label>
+                  -->
+                  <select
+                    id="ContactForm-capacity"
+                    class="field__input contactform-model"
+                    name="contact[capacity]"
+                  >
+                    <option value="">How many seats/hotel rooms is your establishment?</option>
+                    <option value="0-10">0-10</option>
+                    <option value="10-100">10-100</option>
+                    <option value="100-1000">100-1000</option>
+                    <option value="1000+">1000+</option>
+                  </select>
+                  <svg width="16" height="16" viewBox="0 0 20 20">
+                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+
+                <div class="field">
+                  <!--
+                    <label for="ContactForm-liquor-espresso" class="field__label">Do you serve liquor or espresso-based desserts?</label>
+                  -->
+                  <select
+                    id="ContactForm-liquor-espresso"
+                    class="field__input contactform-model"
+                    name="contact[liquor_espresso_desserts]"
+                  >
+                    <option value="">Do you serve liquor or espresso-based desserts?</option>
+                    <option value="liquor">Liquor-based Desserts</option>
+                    <option value="espresso">Espresso-based Desserts</option>
+                  </select>
+                  <svg width="16" height="16" viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+
+                <div class="field">
+                  <!--
+                    <label for="ContactForm-currentSupplier" class="field__label"> In contract with current espresso/coffee supplier?</label>
+                  -->
+                  <select
+                    id="ContactForm-currentSupplier"
+                    class="field__input contactform-model"
+                    name="contact[current_supplier_contract]"
+                  >
+                    <option value="">In contract with current espresso/coffee supplier?</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  <svg width="16" height="16" viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+
+                <div class="field --full-width-field">
+                  <!--
+                    <label for="ContactForm-timeline" class="field__label">What is your timeline for switching/opening?</label>
+                  -->
+                  <select
+                    id="ContactForm-switching-timeline"
+                    class="field__input contactform-model"
+                    name="contact[switching_timeline]"
+                  >
+                    <option value="">What is your timeline for switching/opening?</option>
+                    <option value="immediately">Immediately</option>
+                    <option value="few_weeks">In a few weeks</option>
+                    <option value="six_months">Six months</option>
+                    <option value="next_year">Next year</option>
+                  </select>
+                  <svg width="16" height="16" viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact__button">
+              <button type="submit" class="--button-button">
+                {{ 'templates.contact.form.send' | t }}
+              </button>
+            </div>
+          {%- endform -%}
+        {% endcomment %}
+      </div>
+      <div class="right-content-container">
+        {% unless section.settings.first == blank %}
+          <div class="first">
+            {{ section.settings.first }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.second == blank %}
+          <div class="second">
+            {{ section.settings.second }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.third == blank %}
+          <div class="third">
+            {{ section.settings.third }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.fourth == blank %}
+          <div class="fourth">
+            {{ section.settings.fourth }}
+          </div>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script></script>
+
+{% schema %}
+{
+  "name": "Section Contact Form",
+  "settings": [
+      {
+      "type": "liquid",
+      "id": "form_shortcode",
+      "label": "Form Shortcode"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Banner Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mbl_img",
+      "label": "Mobile Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Contact",
+      "default": "Contact us"
+    },
+    {
+      "type": "richtext",
+      "id": "form_description",
+      "label": "Form Description"
+    },
+    {
+      "type": "richtext",
+      "id": "first",
+      "label": "Sidebar Text 1"
+    },
+    {
+      "type": "richtext",
+      "id": "second",
+      "label": "Sidebar Text 2"
+    },
+    {
+      "type": "richtext",
+      "id": "third",
+      "label": "Sidebar Text 3"
+    },
+    {
+      "type": "richtext",
+      "id": "fourth",
+      "label": "Sidebar Text 4"
+    },
+    {
+      "type": "color",
+      "id": "bg-color",
+      "label": "Background Color"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Mobile Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin Top (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin Bottom (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top  (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom  (Mobile)",
+      "default": 20
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Section Contact Form"
+    }
+  ]
+}
+{% endschema %}

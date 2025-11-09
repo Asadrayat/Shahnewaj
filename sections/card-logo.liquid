@@ -1,0 +1,369 @@
+{% liquid
+  assign id = section.id
+%}
+
+<style>
+  #shopify-section-{{id}} {
+    box-sizing: border-box;
+    margin-top: {{section.settings.margin_top | append: 'px'}};
+    margin-bottom: {{section.settings.margin_bottom | append: 'px'}};
+    padding-top: {{section.settings.padding_top | append: 'px'}};
+    padding-bottom: {{section.settings.padding_bottom | append: 'px'}};
+    background: url("{{ section.settings.img | image_url: width: section.settings.img.width }} ");
+    background-size: cover;
+    background-position: 100% 100%;    
+    .badge__img {
+      width: 100%;
+      max-width: max-content;
+      height: auto;
+      object-fit: cover;
+      line-height: 0;
+        @media(width < 768px) {
+        }
+    }
+    h2.--section-title {
+          color: #fff;
+          /* font-family: var(--font-family-Title, "Neue Plak"); */
+          font-size: 76px;
+          margin: 0;
+          font-weight: 500;
+          text-align: center;
+          /* line-height: var(--Line-Height-Heading-H2, 40px); */
+          letter-spacing: 0;
+          margin-bottom: 52px;
+          /* margin-block: 0 var(--Spacing-Container-xxs); */
+          @media(width < 768px) {
+            font-size: 32px;
+            margin-bottom: 32px;
+          }        
+          em {
+              display: block;
+              font-style: unset;
+              @media(max-width: 768px) {
+                  display: unset;
+              }
+          }
+    }    
+    .button.button--primary {
+        max-width: 100%;
+        margin: 48px auto 0;
+        display: flex;
+        @media(width < 768px) {
+            margin: 32px auto 0;
+        }
+    }
+    h2.--section-title {
+          color: #fff;
+          /* font-family: var(--font-family-Title, "Neue Plak"); */
+          font-size: 76px;
+          margin: 0;
+          font-weight: 500;
+          text-align: center;
+          /* line-height: var(--Line-Height-Heading-H2, 40px); */
+          letter-spacing: 0;
+          margin-bottom: 48px;
+          /* margin-block: 0 var(--Spacing-Container-xxs); */
+          @media(width < 768px) {
+            font-size: 32px;
+            margin-bottom: 32px;
+          }
+          em {
+              display: block;
+              font-style: unset;
+              @media(max-width: 768px) {
+                  display: unset;
+              }
+          }
+
+
+    }
+    .wrapper-{{ id }} {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 100%;
+      gap: 28px;
+      justify-items: stretch;
+      align-items: stretch;
+      @media(max-width: 1200px) {
+          grid-template-columns: repeat(2, 1fr);
+      }    
+      @media(max-width: 600px) {
+          grid-template-columns: repeat(1, 1fr);
+      }    
+    }
+    .colon {
+      line-height: 0;
+    }
+    .wrapper-{{ id }} .top {
+      padding: 28px 28px 0 28px;
+    }
+    .wrapper-{{ id }} .content__wrapper {    
+      width: 100%;
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+      border-radius: 32px;
+      flex-direction: column;
+      background: #fff;
+      box-sizing: border-box;
+      justify-content: center;
+    }
+    .wrapper-{{ id }} .user{
+
+      color: #1281A3;
+      font-family: "Proxima";
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+      padding: 28px;
+      background: inherit;    
+          @media(max-width: 600px) {
+              font-size: 20px;
+          }
+    }
+    .wrapper-{{ id }} .content__{
+      color: var(--Color-Red-CD003A, #CD003A);
+      font-family: "Proxima";
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 36px;
+      text-transform: capitalize;
+      padding: 0;
+      @media(max-width: 600px) {
+          font-size: 20px;
+      }
+    }
+    .content__ *{
+      margin: 0 0 12px;
+
+    }
+    .logo__wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 48px;
+        padding-top: 48px;
+        justify-content: center;
+        @media(max-width: 600px) {
+            gap: 24px;
+            padding-top: 24px;            
+        }        
+        img{
+            height: 72px;
+            width: auto;
+            @media(max-width: 600px) {
+                height: 48px;            
+            }                
+        }
+    }  
+  }  
+  @media(max-width: 600px) {
+    #shopify-section-{{id}} {
+      margin-top: {{section.settings.margin_top_m | append: 'px'}};
+      margin-bottom: {{section.settings.margin_bottom_m | append: 'px'}};
+      padding-top: {{section.settings.padding_top_m | append: 'px'}};
+      padding-bottom: {{section.settings.padding_bottom_m | append: 'px'}};
+    }
+  }
+</style>
+
+<div class="sec-{{ id }}">   
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <h2 class="--section-title">{{ section.settings.heading }}</h2>
+    <div class="wrapper-{{ id }}">
+      {% for block in section.blocks %}
+        <div class="content__wrapper">
+            <div class="top">
+          {% if block.settings.content != blank %}
+            <div class="content__">{{ block.settings.content }}</div>
+          {% endif %}
+          </div>
+          {% if block.settings.text != blank %}
+            <div class="user">{{ block.settings.text }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="logo__wrap">
+       {{ section.settings.logo1 | image_url: width: section.settings.logo1.width | image_tag  }}
+       {{ section.settings.logo2 | image_url: width: section.settings.logo2.width | image_tag  }}
+       {{ section.settings.logo3 | image_url: width: section.settings.logo3.width | image_tag  }}
+       {{ section.settings.logo4 | image_url: width: section.settings.logo4.width | image_tag  }}
+       {{ section.settings.logo5 | image_url: width: section.settings.logo5.width | image_tag  }}
+       {{ section.settings.logo6 | image_url: width: section.settings.logo6.width | image_tag  }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Card Logo",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width Section",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    },
+    {
+        "type": "inline_richtext",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Testimonials"
+    },
+    {
+        "type": "header",
+        "content": "Logos"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo1",
+        "label": "Logo 1"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo2",
+        "label": "Logo 2"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo3",
+        "label": "Logo 3"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo4",
+        "label": "Logo 4"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo5",
+        "label": "Logo 5"
+    }, 
+    {
+        "type": "image_picker",
+        "id": "logo6",
+        "label": "Logo 6"
+    }, 
+    {
+      "type": "header",
+      "content": "Section Spacing Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_m",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "User Name",
+          "default": "Jake L."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Card Logo"
+    }
+  ]
+}
+{% endschema %}

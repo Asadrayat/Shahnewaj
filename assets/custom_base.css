@@ -1,0 +1,55 @@
+:root {
+    --grid-desktop-vertical-spacing:32px;
+    --grid-desktop-horizontal-spacing: 32px;  
+    --grid-mobile-vertical-spacing: 16px;
+    --grid-mobile-horizontal-spacing: 16px;    
+}
+
+h2.--section-title {
+  line-height: 100% !important;
+}
+.saved__price {
+    font-size: 12px;
+    background: rgb(var(--color-foreground));
+    color: #ffa735;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.card__information .price {
+  display: flex !important;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}  
+.card__heading, .card__heading a {
+    text-align: center;
+} 
+.appstle-active-option {
+    background: #af003a !important;
+    color: #ffa735;
+   .appstle_circle {
+      border: 2px solid #ffa735 !important;
+    }    
+
+  span.appstle_dot {
+      background-color: #ffa735  !important;
+  }    
+  .appstle_select, .appstle_select option {      
+      color: #ffa735  !important;
+  }  
+  .appstle_select option {
+    background: #af003a  !important;
+  }
+  .appstle_circle {
+    position: relative;
+  }
+  .appstle_circle::after {
+    position: absolute;
+    content: "";
+    
+  }
+  .appstle_one_time_price_wrapper *, .appstle_subscription_amount_wrapper *{
+    color: #ffa735 !important;
+  }
+}

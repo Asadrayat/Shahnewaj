@@ -1,0 +1,168 @@
+<style>
+
+  .pdp_tab__section {
+    .category__wrap {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 40px;
+      padding: 15px 0;
+      border-block: 1px solid;
+      border: none;
+      margin-bottom: 15px;
+      @media(max-width: 768px) {
+        justify-content: start;
+        /* margin-bottom: 16px; */
+        overflow: auto;
+        scrollbar-width: none;
+      }
+      h3{
+        margin: 0;
+        cursor: pointer;
+        position: relative;
+        color: #000;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        text-wrap: nowrap;
+        line-height: 20px;
+        text-transform: uppercase;
+      }
+    }
+    .category__wrap h3:after {
+        content: ""; /* Empty content for pseudo-element */
+        position: absolute;
+        background-image: url('https://cdn.shopify.com/s/files/1/0576/1204/2410/files/tab-active-bg.svg?v=1754599147');
+        background-size: contain; /* Adjust SVG size to fit */
+        width: max-content;
+        background-position: center;
+        height: 6px;
+        left: 0;
+        background-repeat: no-repeat;
+        background-size: auto;
+        bottom: -14px;
+        transition: width 0.4s;
+    }
+    .category__heading.active h3:after,
+    .category__wrap h3:hover:after {
+      width: 100%;
+    }
+    .pt__richtext {
+      display: none;
+    }
+    .pt__richtext.active {
+      display: block;
+    }
+  }
+
+  .pt__richtext *{
+    margin: 0 0 var(--Spacing-Container-xs);
+  }
+  .pt__richtext a{
+    color: #000;
+    {% comment %} font-family: var(--font-family-control, "Archivo Expanded"); {% endcomment %}
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    text-transform: uppercase;
+  }
+  .pt__richtext p{
+    color: #000;
+
+    /* UI Controls/Control/input/sm */
+    font-family: var(--font-body-family);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 125% */
+  }
+  [data-title="ingredients-nutrition"] p{
+    text-transform: uppercase;
+  }
+  /* css for hiding block if empty starts */
+  .category__heading-Détails.details, .category__heading-Composition.composition, .category__heading-Utilisation.use, .category__heading-Certificates.certificates {
+    /* display: none; */
+  }
+
+  /* css for hiding block if empty ends */
+
+
+</style>
+
+<div class="pdp_tab__section">
+  <div class="category__wrap">
+    <div
+      class="category__heading {% if forloop.first %}active{% endif %} category__heading-{{ block.settings.heading_1 }} "
+      data-title="{{ block.settings.heading_1 | handleize }}"
+    >
+      <h3>{{ block.settings.heading_1 }}</h3>
+    </div>
+    <div
+      class="category__heading {% if forloop.first %}active{% endif %} category__heading-{{ block.settings.heading_2 }} "
+      data-title="{{ block.settings.heading_2 | handleize }}"
+    >
+      <h3>{{ block.settings.heading_2 }}</h3>
+    </div>
+    <div
+      class="category__heading {% if forloop.first %}active{% endif %} category__heading-{{ block.settings.heading_3 }} "
+      data-title="{{ block.settings.heading_3 | handleize }}"
+    >
+      <h3>{{ block.settings.heading_3 }}</h3>
+    </div>
+  </div>
+  <div class="content__wrap">
+
+          <div
+            class="pt__richtext"
+            data-title="{{ block.settings.heading_1 | handleize }}"
+          >
+            {{ block.settings.content_1 }}
+          </div>
+          <div
+            class="pt__richtext"
+            data-title="{{ block.settings.heading_2 | handleize }}"
+          >
+            {{ block.settings.content_2 }}
+          </div>
+          <div
+            class="pt__richtext"
+            data-title="{{ block.settings.heading_3 | handleize }}"
+          >
+            {{ block.settings.content_3 }}
+          </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabHeadings = document.querySelectorAll('.pdp_tab__section .category__heading');
+    const contents = document.querySelectorAll('.pdp_tab__section .pt__richtext');
+    if (tabHeadings.length && contents.length) {
+      tabHeadings[0].classList.add('active');
+      contents[0].classList.add('active');
+    }
+    tabHeadings.forEach((tabHeading) => {
+      tabHeading.addEventListener('click', () => {
+        // Remove active class from all headings and contents
+        tabHeadings.forEach((th) => th.classList.remove('active'));
+        contents.forEach((content) => content.classList.remove('active'));
+
+        // Add active class to clicked tab and matching content
+        tabHeading.classList.add('active');
+        contents.forEach((content) => {
+          if (content.dataset.title === tabHeading.dataset.title) {
+            content.classList.add('active');
+          }
+        });
+      });
+    });
+  });
+</script>
